@@ -34,7 +34,10 @@ export class MainWindow extends MainWindowBaseClass implements OnAppReady {
         this.createTray();
         console.log("app raady");
     }
-
+                //allowRunningInsecureContent: process.env.NODE_ENV === 'development',
+                //grantFileProtocolExtraPrivileges: true,
+                //npx @electron/fuses read --app ElectronReact.exe
+                //npx @electron/fuses write --app ElectronReact.exe GrantFileProtocolExtraPrivileges=on -doesnt supported
     private createMainWindow() {
         const window = new BrowserWindow({
             x: 0,
@@ -44,9 +47,10 @@ export class MainWindow extends MainWindowBaseClass implements OnAppReady {
             show: true,
             webPreferences: {
                 nodeIntegration: true,
-                allowRunningInsecureContent: process.env.NODE_ENV === 'development',
+                allowRunningInsecureContent: true,
                 contextIsolation: false,
-                backgroundThrottling: false
+                backgroundThrottling: false,
+                webSecurity: false,
             }
         });
         this.loadUrl(window, this.fileService.rootPath);
